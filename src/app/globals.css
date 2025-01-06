@@ -1,42 +1,100 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+  margin: 0px;
+  padding: 0px;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* Hero section css */
+.heroSectionMain {
+  background-image: url("/heroBg.png"); /* Set the image */
+  background-size: cover; /* Ensures the image covers the container */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  height: 100vh;
+}
+.heroImage{
+  border-radius: 50%;
+  height: 400px;
+  width: 400px;
+}
+.brandLogo{
+  height: 150px;
+}
+/* Hero section start */
+/* about section css */
+.aboutSectionMain {
+  background-image: url("/aboutBg.png"); /* Set the image */
+  background-size: cover; /* Ensures the image covers the container */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  height: 100vh;
+}
+.cardImage{
+  /* border-radius: 50%; */
+  /* height: 400px; */
+  /* width: 400px; */
+}
+.brandLogo{
+  height: 150px;
+}
+.aboutSectionMain h1{
+  color: white;
+  font-size: 50px;
+  font-weight: 800;
+}
+.aboutSectionMain p{
+  color: white;
+  font-size: 25px;
+}
+/* Hero section start */
+
+.bookingSectionMain {
+  background-image: url("/bookingBg.png"); /* Set the image */
+  background-size: cover; /* Ensures the image covers the container */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  height: 100vh;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+.aboutSectionMain h1{
+  color: white;
+  font-size: 50px;
+  font-weight: 800;
+}
+.aboutSectionMain p{
+  color: white;
+  font-size: 25px;
+}
+.bookingSectionMain  h1{
+  color: white;
+  font-size: 50px;
+  font-weight: 800;
+}
+@media screen and (max-width:425px){
+  
+  .heroImage{
+    border-radius: 50%;
+    height: 300px;
+    width: 300px;
+  }
+  .brandLogo{
+    height: 130px;
+  }
+  .aboutSectionMain {
+    
+    height: 100%;
+  }
+  .bookingSectionMain {
+    
+    height: 100%;
+  }
+  .aboutSectionMain p{
+   
+    font-size: 20px;
+    text-align: justify;
+  }
+  .bookingSectionMain  h1{
+    color: white;
+    font-size: 40px;
+    font-weight: 800;
   }
 }

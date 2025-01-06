@@ -1,95 +1,83 @@
-import Image from "next/image";
-import styles from "./page.module.css";
-
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+    <div>
+      {/* hero section start */}
+      <div className="d-flex justify-content-center align-items-center w-100  heroSectionMain ">
+        <div>
+          <div className="d-flex justify-content-center">
+            <img src="/profilePic.png" className="heroImage" />
+          </div>
+          <div className="mt-4 d-flex justify-content-center">
+            <img src="/newLogo.png" className="brandLogo" />
+          </div>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+      {/* hero section end */}
+      {/* about section start */}
+      <div className="d-flex justify-content-center align-items-center w-100  aboutSectionMain py-5 py-md-0">
+        <div className="row w-100 m-0 p-0  container">
+          <div className="col-12 col-md-4 p-md-4">
+      <h1 className="d-block d-md-none text-center mb-5">About US</h1>
+            <img src="/profileCardImage.png" className="cardImage img-fluid" />
+          </div>
+          <div className="col-12 col-md-8 p-4">
+            <h1 className="d-none d-md-block">About US</h1>
+            <p>
+              Lorem ipsum odor amet, consectetuer adipiscing elit. Class ultrices sodales senectus enim quis. Montes sit
+              felis gravida erat varius. Lobortis semper taciti pretium duis interdum fermentum. Bibendum semper
+              malesuada nunc magna imperdiet. Phasellus sed sodales imperdiet suscipit, mus laoreet commodo egestas.
+              Luctus suscipit curabitur justo vulputate leo egestas sit ornare.
+            </p>
+          </div>
+        </div>
+      </div>
+      {/* about section end */}
+
+      {/* booking section start */}
+      {/* <div className="d-flex justify-content-center align-items-center w-100  bookingSectionMain">
+        <div className="row w-100  container">
+          <div className="col-12 col-md-7 px-md-4 px-2 py-5">
+            <h1 className="mb-5">Booking Your Appointment</h1>
+            <div className="me-md-5 pe-md-5">
+              <label>Select Location</label>
+              <slect className="form-control">
+                <option>Chandigarh</option>
+              </slect>
+            
+              <label>Full Name</label>
+              <input className="form-control"/>
+              <label>Contact Number</label>
+              <input className="form-control"/>
+              <label>Your City</label>
+              <input className="form-control"/>
+              <label>Number of Kundali</label>
+              <slect className="form-control">
+                <option>1 (10 min)</option>
+              </slect>
+              <label>Extra Time</label>
+              <input className="form-control"/>
+              <label>Select Date</label>
+              <div>
+              <button>
+                20 Nov
+              </button>
+              <button>
+                21 Nov
+              </button>
+              <button>
+                22 Nov
+              </button>
+              </div>
+              
+              <div>
+                <button>Submit</button>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div> */}
+      {/* booking section end */}
     </div>
   );
 }
