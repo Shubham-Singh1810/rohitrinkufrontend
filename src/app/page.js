@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import moment from "moment"
+
 export default function Home() {
   const [formData, setFormDta] = useState({
     location: "",
@@ -13,12 +15,22 @@ export default function Home() {
     bookingDate: "",
   });
   const handleSubmitBooking = async () => {
-    if(formData.contact.length !=10){
-      toast.error("Please enter a valid contact number")
-      return
-    }
+    if (formData.contact.length != 10) {
+      toast.error("Please enter a valid contact number");
+      return;
+    } 
+    const addFormData = new FormData();
+    addFormData.append("location", formData?.location)
+    addFormData.append("fullName", formData?.fullName)
+    addFormData.append("contact", formData?.contact)
+    addFormData.append("yourCity", formData?.yourCity)
+    addFormData.append("noOfKundali", formData?.noOfKundali)
+    addFormData.append("extraTime", formData?.extraTime)
+    addFormData.append("bookingDate", JSON.stringify(selectedDates));
     try {
-      let response = await axios.post("https://rohitrinkuserver.vercel.app/api/booking/store", formData);
+      const response = await axios.post("https://rohitrinkuserver.vercel.app/api/booking/store", addFormData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       if (response?.data.success) {
         toast.success(response?.data.message);
         setFormDta({
@@ -30,6 +42,7 @@ export default function Home() {
           extraTime: "",
           bookingDate: "",
         });
+        setSelectedDates([])
       } else {
         toast.error("Something went wrong");
       }
@@ -37,7 +50,23 @@ export default function Home() {
       toast.error("Internal Server Error");
     }
   };
+  const [selectedDates, setSelectedDates] = useState([]);
 
+  const handleDateChange = (e) => {
+    if(selectedDates.length<3){
+      const date = e.target.value;
+    if (date && !selectedDates.includes(date)) {
+      // Add the selected date to the array
+      setSelectedDates((prevDates) => [...prevDates, date]);
+    }
+    }
+    
+  };
+
+  const removeDate = (dateToRemove) => {
+    // Remove a date from the array
+    setSelectedDates((prevDates) => prevDates.filter((date) => date !== dateToRemove));
+  };
   return (
     <div>
       {/* hero section start */}
@@ -79,17 +108,34 @@ export default function Home() {
             <h1 className="mb-2">Booking Your Appointment</h1>
             <div className="col-md-7 ">
               <label>Select Location</label>
-              <select className="form-control" value={formData?.location} onChange={(e) => setFormDta({ ...formData, location: e.target.value })}>
+              <select
+                className="form-control"
+                value={formData?.location}
+                onChange={(e) => setFormDta({ ...formData, location: e.target.value })}
+              >
                 <option value="">Select</option>
-                <option value="Chandigarh">Chandigarh</option>
-                <option value="Delhi">Delhi</option>
+                <option value="Jalandhar">Jalandhar</option>
+                
               </select>
               <label>Full Name</label>
-              <input className="form-control" value={formData?.fullName} onChange={(e) => setFormDta({ ...formData, fullName: e.target.value })} />
+              <input
+                className="form-control"
+                value={formData?.fullName}
+                onChange={(e) => setFormDta({ ...formData, fullName: e.target.value })}
+              />
               <label>Contact Number</label>
-              <input className="form-control" type="number" value={formData?.contact} onChange={(e) => setFormDta({ ...formData, contact: e.target.value })} />
+              <input
+                className="form-control"
+                type="number"
+                value={formData?.contact}
+                onChange={(e) => setFormDta({ ...formData, contact: e.target.value })}
+              />
               <label>Your City</label>
-              <input className="form-control" value={formData?.yourCity} onChange={(e) => setFormDta({ ...formData, yourCity: e.target.value })} />
+              <input
+                className="form-control"
+                value={formData?.yourCity}
+                onChange={(e) => setFormDta({ ...formData, yourCity: e.target.value })}
+              />
               <label>Number of Kundali</label>
               <select
                 className="form-control"
@@ -100,31 +146,33 @@ export default function Home() {
                 <option value="1">1 (10 min)</option>
                 <option value="2">2 (20 min)</option>
                 <option value="3">3 (30 min)</option>
-                <option value="4">3 (40 min)</option>
+                <option value="4">4 (40 min)</option>
               </select>
-              <label>Extra Time</label>
+              <label>Extra Time (minutes)</label>
               <input
                 className="form-control"
                 onChange={(e) => setFormDta({ ...formData, extraTime: e.target.value })}
                 value={formData?.extraTime}
+                type="number"
               />
-              <label>Select Date</label>
-              {/* <div className="mb-4 d-flex justify-content-between d-md-block">
-                <button className="purpleBtn">20 Nov</button>
-                <button className="whiteBtn mx-md-3">21 Nov</button>
-                <button className="whiteBtn">22 Nov</button>
-              </div> */}
-              <input
-                className="form-control mb-4"
-                type="date"
-                onChange={(e) => setFormDta({ ...formData, bookingDate: e.target.value })}
-                value={formData?.bookingDate}
-              />
+               <div>
+              <label>Select upto 3 Dates</label>
+                <input className="form-control mb-4" type="date" onChange={handleDateChange} />
+                
+              </div>
+              <div className="mb-4 mt-3 d-flex">
+                {selectedDates?.map((date, index)=>{
+                  return(
+                    <button key={index} className="purpleBtn me-2">{ moment(date).format("Do MMM") } <img src="https://cdn-icons-png.flaticon.com/128/9068/9068699.png" style={{height:"20px"}} onClick={() =>removeDate(date)}/></button>
+                  )
+                })}
+              </div>
+              
               {formData?.location &&
               formData?.fullName &&
               formData?.contact &&
-              formData?.bookingDate &&
               formData?.noOfKundali &&
+              selectedDates?.length>0 &&
               formData?.extraTime ? (
                 <div className="w-100">
                   <button className=" submitBtn" style={{ background: "#139F01" }} onClick={handleSubmitBooking}>
