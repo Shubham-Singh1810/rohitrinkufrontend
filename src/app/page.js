@@ -1,11 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import moment from "moment";
 
 export default function Home() {
-  const [formData, setFormDta] = useState({
+  const [formData, setFormData] = useState({
     location: "",
     fullName: "",
     contact: "",
@@ -35,7 +35,7 @@ export default function Home() {
       });
       if (response?.data.success) {
         toast.success(response?.data.message);
-        setFormDta({
+        setFormData({
           location: "",
           fullName: "",
           contact: "",
@@ -69,7 +69,13 @@ export default function Home() {
     // Remove a date from the array
     setSelectedDates((prevDates) => prevDates.filter((date) => date !== dateToRemove));
   };
-  
+  const [showForm , setShowForm]=useState(false)
+  useEffect(()=>{
+    if(formData?.location){
+
+      setShowForm(true)
+    }
+  }, [formData?.location])
   return (
     <div>
       {/* hero section start */}
@@ -108,41 +114,42 @@ export default function Home() {
       <div className="d-flex justify-content-center align-items-center w-100 bookingSectionMain">
         <div className="row w-100  container">
           <div className="col-12 col-md-12 px-md-4 px-2 py-5">
-            <h1 className="mb-2">Booking Your Appointment</h1>
+            <h1 className="mb-2">Book Your Appointment</h1>
             <div className="row  col-12 p-0 m-0">
             <div className="col-md-5 order-lg-1 order-2 px-0 ">
               <label>Select Location</label>
               <select
                 className="form-control"
                 value={formData?.location}
-                onChange={(e) => setFormDta({ ...formData, location: e.target.value })}
+                onChange={(e) => setFormData({ ...formData, location: e.target.value })}
               >
                 <option value="">Select</option>
                 <option value="Jalandhar">Jalandhar</option>
               </select>
+              {showForm &&  <>
               <label>Full Name</label>
               <input
                 className="form-control"
                 value={formData?.fullName}
-                onChange={(e) => setFormDta({ ...formData, fullName: e.target.value })}
+                onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
               />
               <label>Contact Number</label>
               <input
                 className="form-control"
                 type="number"
                 value={formData?.contact}
-                onChange={(e) => setFormDta({ ...formData, contact: e.target.value })}
+                onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
               />
               <label>Your City</label>
               <input
                 className="form-control"
                 value={formData?.yourCity}
-                onChange={(e) => setFormDta({ ...formData, yourCity: e.target.value })}
+                onChange={(e) => setFormData({ ...formData, yourCity: e.target.value })}
               />
               <label>Number of Kundali</label>
               <select
                 className="form-control"
-                onChange={(e) => setFormDta({ ...formData, noOfKundali: e.target.value })}
+                onChange={(e) => setFormData({ ...formData, noOfKundali: e.target.value })}
                 value={formData?.noOfKundali}
               >
                 <option value="">Select</option>
@@ -155,7 +162,7 @@ export default function Home() {
               
               <select
                 className="form-control"
-                onChange={(e) => setFormDta({ ...formData, extraTime: e.target.value })}
+                onChange={(e) => setFormData({ ...formData, extraTime: e.target.value })}
                 value={formData?.extraTime}
               >
                 <option value="">Select</option>
@@ -184,7 +191,6 @@ export default function Home() {
                   );
                 })}
               </div>
-
               {formData?.location &&
               formData?.fullName &&
               formData?.contact &&
@@ -206,9 +212,13 @@ export default function Home() {
                   </button>
                 </div>
               )}
+              </>}
+             
+
+              
             </div>
             <div className="col-md-7 d-flex justify-content-end order-lg-2 order-1 ">
-              <div className="w-100">
+              <div className="w-100 ">
               <div className="d-flex justify-content-center">
             <img src="/profilePic.png" className="heroImage" />
           </div>
